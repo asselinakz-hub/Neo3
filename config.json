@@ -1,0 +1,21 @@
+{
+  "app": {
+    "title": "💠 NEO — Диагностика по позициям (AI-only)",
+    "version": "positions-ai-1.0"
+  },
+  "openai": {
+    "model": "gpt-4.1-mini"
+  },
+  "master": {
+    "enabled": true,
+    "password_env": "MASTER_PASSWORD"
+  },
+  "flow": {
+    "max_questions_total": 24,
+    "max_followups_per_step": 1,
+    "confidence_stop": 0.78
+  },
+  "storage": {
+    "data_dir": "data/sessions"
+  }
+}
