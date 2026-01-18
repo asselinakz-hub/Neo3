@@ -263,7 +263,7 @@ def call_ai_next_question(client, model: str, step_id: str, step_goal: str):
             {"role":"user","content": json.dumps(payload, ensure_ascii=False)},
             {"role":"user","content": guide},
         ],
-        response_format=response_schema_note(),
+        response_format={"type": "json_object"},
     )
 
     text = ""
