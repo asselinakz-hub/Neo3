@@ -263,15 +263,16 @@ def call_ai_next_question(client, model: str, step_id: str, step_goal: str):
             {"role":"user","content": json.dumps(payload, ensure_ascii=False)},
             {"role":"user","content": guide},
         ],
-        response_format={"type": "json_object"},
+        text={"format": {"type": "json_object"}},
     )
 
-    text = ""
-    try:
-        text = r.output_text
-    except Exception:
-        # fallback
-        text = json.dumps({"question":"Ошибка чтения ответа модели","type":"text","options":[],"analysis_update":{}}, ensure_ascii=False)
+    text = getattr(r, "output_text", "") or ""
+    if not text.strip():
+        # fallback на случай неожиданной структуры
+        try:
+            text = r.output[0].content[0].text
+        except Exception:
+            text = '{"question":"Ошибка чтения ответа модели","type":"text","options":[],"analysis_update":{}}'
 
     return json.loads(text)
 
